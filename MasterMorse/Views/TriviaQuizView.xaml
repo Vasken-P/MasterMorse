@@ -3,6 +3,64 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MorseMaster - Quiz" Height="700" Width="900"
         MinHeight="560" MinWidth="680">
+    <Window.Resources>
+        <Style x:Key="QuizAnswerStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Foreground" Value="#202020" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="#D0D0D0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="14" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="MinHeight" Value="76" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border x:Name="AnswerBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Ellipse x:Name="SelectionIndicator"
+                                         Width="14" Height="14"
+                                         HorizontalAlignment="Right"
+                                         Stroke="{TemplateBinding Foreground}"
+                                         StrokeThickness="1.5" />
+                                <ContentPresenter Grid.Row="1"
+                                                  ContentSource="Content"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  RecognizesAccessKey="True" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="AnswerBorder" Property="Background" Value="#F4F7FA" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="AnswerBorder" Property="Background" Value="#EEF5FC" />
+                                <Setter TargetName="AnswerBorder" Property="BorderBrush" Value="#315F90" />
+                                <Setter TargetName="SelectionIndicator" Property="Fill" Value="#315F90" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="AnswerBorder" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

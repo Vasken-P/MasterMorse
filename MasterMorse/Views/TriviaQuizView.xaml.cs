@@ -42,14 +42,13 @@ public partial class TriviaQuizView : Window, ITriviaQuizView
                 Content = new TextBlock
                 {
                     Text = question.Answers[index],
-                    TextWrapping = TextWrapping.Wrap
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center
                 },
                 Tag = index,
                 GroupName = "QuestionAnswers",
                 FontSize = 16,
-                Margin = new Thickness(8),
-                MinHeight = 56,
-                VerticalContentAlignment = VerticalAlignment.Center
+                Style = (Style)FindResource("QuizAnswerStyle")
             };
             answerButton.Checked += OnAnswerChoiceSelected;
             _answerButtons.Add(answerButton);
