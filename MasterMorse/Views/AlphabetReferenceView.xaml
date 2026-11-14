@@ -5,29 +5,55 @@
         MinHeight="560" MinWidth="680">
     <Window.Resources>
         <DataTemplate x:Key="ReferenceEntryTemplate">
-            <Border Width="160" Height="160" Margin="6"
-                    BorderBrush="#D0D0D0" BorderThickness="1"
-                    CornerRadius="6">
-                <StackPanel HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="10">
-                    <TextBlock Text="{Binding Label}"
-                               FontSize="24" FontWeight="SemiBold"
-                               HorizontalAlignment="Center"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
-                    <TextBlock Text="{Binding Pattern}" FontSize="20"
-                               Margin="0,6,0,0"
-                               HorizontalAlignment="Center"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
-                    <TextBlock Text="{Binding Meaning}" FontSize="12"
-                               Margin="0,6,0,0"
-                               HorizontalAlignment="Center"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
-                </StackPanel>
-            </Border>
+            <Button Width="160" Height="160" Margin="6"
+                    Padding="10" Cursor="Hand"
+                    Background="White" BorderBrush="#D0D0D0"
+                    BorderThickness="1" Tag="{Binding}"
+                    AutomationProperties.Name="{Binding Label}"
+                    ToolTip="Play Morse code"
+                    Click="OnEntryClicked">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="NodeBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <StackPanel HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Label}"
+                                           FontSize="24" FontWeight="SemiBold"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Pattern}" FontSize="20"
+                                           Margin="0,6,0,0"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Meaning}" FontSize="12"
+                                           Margin="0,6,0,0"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NodeBorder" Property="Background" Value="#F4F7FA" />
+                                <Setter TargetName="NodeBorder" Property="BorderBrush" Value="#315F90" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="NodeBorder" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="NodeBorder" Property="Opacity" Value="0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </DataTemplate>
     </Window.Resources>
     <Grid Margin="24">
