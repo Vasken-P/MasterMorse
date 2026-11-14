@@ -3,6 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MorseMaster - Alphabet reference" Height="700" Width="900"
         MinHeight="560" MinWidth="680">
+    <Window.Resources>
+        <DataTemplate x:Key="ReferenceEntryTemplate">
+            <Border Width="160" Height="160" Margin="6"
+                    BorderBrush="#D0D0D0" BorderThickness="1"
+                    CornerRadius="6">
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="10">
+                    <TextBlock Text="{Binding Label}"
+                               FontSize="24" FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Pattern}" FontSize="20"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Meaning}" FontSize="12"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,37 +55,37 @@
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl x:Name="EntriesList">
+            <ItemsControl x:Name="SectionsList">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel />
+                        <StackPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="160" Height="160" Margin="6"
-                                BorderBrush="#D0D0D0" BorderThickness="1"
-                                CornerRadius="6">
-                            <StackPanel HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Margin="10">
-                                <TextBlock Text="{Binding Label}"
-                                           FontSize="24" FontWeight="SemiBold"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           TextWrapping="Wrap" />
-                                <TextBlock Text="{Binding Pattern}" FontSize="20"
-                                           Margin="0,6,0,0"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           TextWrapping="Wrap" />
-                                <TextBlock Text="{Binding Meaning}" FontSize="12"
-                                           Margin="0,6,0,0"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Border>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}"
+                                       FontSize="20" FontWeight="SemiBold"
+                                       Margin="6,0,6,8">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Title}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <ItemsControl ItemsSource="{Binding Entries}"
+                                          ItemTemplate="{StaticResource ReferenceEntryTemplate}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

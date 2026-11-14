@@ -32,7 +32,7 @@ public sealed class AlphabetReferenceProvider : IAlphabetReferenceProvider
         CreateEntry("Z", "--..")
     ]);
 
-    private static readonly IReadOnlyList<MorseReferenceEntry> AbbreviationEntries = Array.AsReadOnly(
+    private static readonly IReadOnlyList<MorseReferenceEntry> GeneralEntries = Array.AsReadOnly(
     [
         CreateEntry("SOS", "... --- ...", "Universal distress signal"),
         CreateEntry("CQ", "-.-. --.-", "Calling any station"),
@@ -46,11 +46,40 @@ public sealed class AlphabetReferenceProvider : IAlphabetReferenceProvider
         CreateEntry("SK", "... -.-", "End of contact / Signing off")
     ]);
 
-    public IReadOnlyList<MorseReferenceEntry> GetEntries(ReferenceMode mode) =>
+    private static readonly IReadOnlyList<MorseReferenceEntry> MedicalEntries = Array.AsReadOnly(
+    [
+        CreateEntry("HLP", ".... .-.. .--.", "Help / Need assistance"),
+        CreateEntry("PAIN", ".--. .- .. -.", "I am in pain"),
+        CreateEntry("AIR", ".- .. .-.", "Short of breath / Need oxygen"),
+        CreateEntry("SUCT", "... ..- -.-. -", "Suction (clear airway/mucus)"),
+        CreateEntry("MED", "-- . -..", "Medication"),
+        CreateEntry("DOC", "-.. --- -.-.", "Call doctor / nurse"),
+        CreateEntry("VOM", "...- --- --", "Nauseous / Going to vomit"),
+        CreateEntry("POS", ".--. --- ...", "Reposition / Turn me"),
+        CreateEntry("WTR", ".-- - .-.", "Water / Thirsty"),
+        CreateEntry("BTH", "-... - ....", "Bathroom / Bedpan"),
+        CreateEntry("COLD", "-.-. --- .-.. -..", "I am too cold"),
+        CreateEntry("HOT", ".... --- -", "I am too hot"),
+        CreateEntry("Y", "-.--", "Yes / Confirm"),
+        CreateEntry("N", "-.", "No / Stop")
+    ]);
+
+    private static readonly IReadOnlyList<MorseReferenceSection> AlphabetSections = Array.AsReadOnly(
+    [
+        new MorseReferenceSection(string.Empty, AlphabetEntries)
+    ]);
+
+    private static readonly IReadOnlyList<MorseReferenceSection> AbbreviationSections = Array.AsReadOnly(
+    [
+        new MorseReferenceSection("General", GeneralEntries),
+        new MorseReferenceSection("Medical", MedicalEntries)
+    ]);
+
+    public IReadOnlyList<MorseReferenceSection> GetSections(ReferenceMode mode) =>
         mode switch
         {
-            ReferenceMode.Alphabet => AlphabetEntries,
-            ReferenceMode.Abbreviations => AbbreviationEntries,
+            ReferenceMode.Alphabet => AlphabetSections,
+            ReferenceMode.Abbreviations => AbbreviationSections,
             _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "Unknown reference mode.")
         };
 

@@ -13,9 +13,9 @@ public partial class AlphabetReferenceView : Window, IAlphabetReferenceView
 
     public event Action<ReferenceMode>? ModeSelected;
 
-    public void DisplayEntries(IReadOnlyList<MorseReferenceEntry> entries, ReferenceMode mode)
+    public void DisplaySections(IReadOnlyList<MorseReferenceSection> sections, ReferenceMode mode)
     {
-        EntriesList.ItemsSource = entries;
+        SectionsList.ItemsSource = sections;
         AlphabetModeButton.IsChecked = mode == ReferenceMode.Alphabet;
         AbbreviationsModeButton.IsChecked = mode == ReferenceMode.Abbreviations;
     }

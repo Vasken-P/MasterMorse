@@ -22,6 +22,6 @@ public sealed class AlphabetReferencePresenter
 
     private void ShowMode(ReferenceMode mode)
     {
-        _view.DisplayEntries(_provider.GetEntries(mode), mode);
+        _view.DisplaySections(_provider.GetSections(mode), mode);
     }
 }
