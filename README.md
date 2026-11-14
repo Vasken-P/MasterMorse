@@ -11,10 +11,12 @@ MasterMorse aims to make learning Morse code accessible, with a translator and l
 
 ## Build and run
 
-Install the .NET 10 SDK on Windows, then run:
+Open [`MasterMorse.sln`](MasterMorse.sln) in Visual Studio 2026 or later with the .NET desktop development workload installed. The solution contains the WPF application in `src/MasterMorse`.
+
+Alternatively, install the .NET 10 SDK on Windows and run:
 
 ```sh
-dotnet build src/MasterMorse/MasterMorse.csproj
+dotnet build MasterMorse.sln
 dotnet run --project src/MasterMorse/MasterMorse.csproj
 ```
 
