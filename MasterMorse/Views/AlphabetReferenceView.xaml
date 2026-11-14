@@ -10,11 +10,20 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0,0,0,16">
-            <TextBlock Text="Morse code alphabet"
+            <TextBlock Text="Morse code reference"
                        FontSize="26" FontWeight="SemiBold" />
-            <TextBlock Text="Each letter has its own pattern of dots and dashes."
+            <TextBlock Text="Browse letters and common abbreviations."
                        Margin="0,4,0,0" Foreground="DimGray"
                        TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                <RadioButton x:Name="AlphabetModeButton"
+                             Content="Alphabet" GroupName="ReferenceMode"
+                             IsChecked="True" Margin="0,0,16,0"
+                             Checked="OnAlphabetModeSelected" />
+                <RadioButton x:Name="AbbreviationsModeButton"
+                             Content="Abbreviations" GroupName="ReferenceMode"
+                             Checked="OnAbbreviationsModeSelected" />
+            </StackPanel>
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
@@ -27,17 +36,27 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="110" Height="110" Margin="6"
+                        <Border Width="160" Height="160" Margin="6"
                                 BorderBrush="#D0D0D0" BorderThickness="1"
                                 CornerRadius="6">
                             <StackPanel HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Character}"
+                                        VerticalAlignment="Center"
+                                        Margin="10">
+                                <TextBlock Text="{Binding Label}"
                                            FontSize="24" FontWeight="SemiBold"
-                                           HorizontalAlignment="Center" />
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
                                 <TextBlock Text="{Binding Pattern}" FontSize="20"
-                                           Margin="0,8,0,0"
-                                           HorizontalAlignment="Center" />
+                                           Margin="0,6,0,0"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Meaning}" FontSize="12"
+                                           Margin="0,6,0,0"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>

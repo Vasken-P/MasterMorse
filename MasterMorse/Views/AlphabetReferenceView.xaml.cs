@@ -11,8 +11,18 @@ public partial class AlphabetReferenceView : Window, IAlphabetReferenceView
         InitializeComponent();
     }
 
-    public void DisplayEntries(IReadOnlyList<AlphabetReferenceEntry> entries)
+    public event Action<ReferenceMode>? ModeSelected;
+
+    public void DisplayEntries(IReadOnlyList<MorseReferenceEntry> entries, ReferenceMode mode)
     {
         EntriesList.ItemsSource = entries;
+        AlphabetModeButton.IsChecked = mode == ReferenceMode.Alphabet;
+        AbbreviationsModeButton.IsChecked = mode == ReferenceMode.Abbreviations;
     }
+
+    private void OnAlphabetModeSelected(object sender, RoutedEventArgs e) =>
+        ModeSelected?.Invoke(ReferenceMode.Alphabet);
+
+    private void OnAbbreviationsModeSelected(object sender, RoutedEventArgs e) =>
+        ModeSelected?.Invoke(ReferenceMode.Abbreviations);
 }

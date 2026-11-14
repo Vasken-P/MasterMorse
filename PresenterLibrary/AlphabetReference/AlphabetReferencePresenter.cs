@@ -16,6 +16,12 @@ public sealed class AlphabetReferencePresenter
     public void Initialize()
     {
         _view.Title = "MorseMaster - Alphabet reference";
-        _view.DisplayEntries(_provider.GetEntries());
+        _view.ModeSelected += ShowMode;
+        ShowMode(ReferenceMode.Alphabet);
+    }
+
+    private void ShowMode(ReferenceMode mode)
+    {
+        _view.DisplayEntries(_provider.GetEntries(mode), mode);
     }
 }
