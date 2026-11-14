@@ -9,6 +9,7 @@ MorseMaster aims to make learning Morse code accessible. It currently includes a
 - [`PresenterLibrary/Guidebook`](PresenterLibrary/Guidebook/) contains [`IGuidebookView`](PresenterLibrary/Guidebook/IGuidebookView.cs) and [`GuidebookPresenter`](PresenterLibrary/Guidebook/GuidebookPresenter.cs). The presenter loads guidebook content and checks answers through the model; the view reports user actions through its interface.
 - [`AlphabetReferenceView`](MasterMorse/Views/AlphabetReferenceView.xaml) and [`AlphabetReferencePresenter`](PresenterLibrary/AlphabetReference/AlphabetReferencePresenter.cs) display the alphabet reference from the shared model. The page is not yet linked from navigation.
 - [`ModelLibrary`](ModelLibrary/) is shared by features. It contains the guidebook lesson, example, and practice-question types, plus the content provider, and builds into `ModelLibrary.dll`.
+- The translator and 1v1 duel implementation is retained in `MainWindow`, `DuelWindow`, `PresenterLibrary`, and `ModelLibrary/Duel`. These features are not yet connected to navigation.
 
 Each feature has its own view and presenter over the shared model. Select **Get Started** on the title screen to open the guidebook, or **Back to title** to return. The guidebook displays its topics as cards on one scrollable page, followed by a text-answer practice question. Incorrect answers can be retried; a correct answer gives feedback and disables submission.
 
