@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using MasterMorse.Infrastructure;
-using MasterMorse.Model;
-using MasterMorse.Presenters;
+using MasterMorse.Models;
+using MasterMorse.Presenters.Guidebook;
+using MasterMorse.Presenters.Title;
 using MasterMorse.Views;
 
 namespace MasterMorse;
@@ -16,20 +16,21 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        var view = new MainWindow();
-        var presenter = new MainPresenter(view, new BeepMorsePlayer(), new WpfClipboardService());
-        presenter.Initialize();
-        view.DuelRequested += OpenDuel;
-        MainWindow = view;
-        view.Show();
+        var titleView = new TitleView();
+        var titlePresenter = new TitlePresenter(titleView, () => OpenGuidebook(titleView));
+        titlePresenter.Initialize();
+        MainWindow = titleView;
+        titleView.Show();
     }
 
-    /// <summary>Opens a new 1v1 duel window in the chosen mode, with its own presenter.</summary>
-    private static void OpenDuel(Difficulty difficulty)
+    private static void OpenGuidebook(TitleView titleView)
     {
-        var duel = new DuelWindow(difficulty);
-        var duelPresenter = new MatchPresenter(duel);
-        duelPresenter.Initialize();
-        duel.Show();
+        var guidebookView = new GuidebookView();
+        var presenter = new GuidebookPresenter(
+            guidebookView, new GuidebookContentProvider(), guidebookView.Close);
+        presenter.Initialize();
+        guidebookView.Closed += (_, _) => titleView.Show();
+        guidebookView.Show();
+        titleView.Hide();
     }
 }

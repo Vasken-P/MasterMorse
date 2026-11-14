@@ -1,0 +1,91 @@
+<Window x:Class="MasterMorse.Views.GuidebookView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MorseMaster - Guidebook" Height="700" Width="900"
+        MinHeight="560" MinWidth="680">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,16">
+            <Button Content="Back to title" HorizontalAlignment="Left"
+                    Padding="12,6" Margin="0,0,0,12"
+                    Click="OnReturnToTitle" />
+            <TextBlock Text="Morse code guidebook"
+                       FontSize="26" FontWeight="SemiBold" />
+            <TextBlock Text="Learn the signals, read a message, then try it yourself."
+                       Margin="0,4,0,0" Foreground="DimGray"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel MaxWidth="760" Margin="0,0,12,0">
+                <ItemsControl x:Name="LessonsList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#D0D0D0" BorderThickness="1"
+                                    CornerRadius="6" Padding="16" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding Explanation}"
+                                               Margin="0,8,0,0"
+                                               FontSize="16" TextWrapping="Wrap" />
+                                    <ItemsControl ItemsSource="{Binding Examples}"
+                                                  Margin="0,8,0,0">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock FontSize="16" Margin="0,2,0,0"
+                                                           TextWrapping="Wrap">
+                                                    <Run Text="{Binding Character}" />
+                                                    <Run Text=" = " />
+                                                    <Run Text="{Binding Pattern}" />
+                                                    <Run Text=" — " />
+                                                    <Run Text="{Binding Reading}" />
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Border Padding="16" Margin="0,0,0,12"
+                        BorderBrush="#D0D0D0" BorderThickness="1"
+                        Background="#F3F6FA" CornerRadius="6">
+                    <StackPanel>
+                        <TextBlock Text="Practice"
+                                   FontSize="18" FontWeight="SemiBold" />
+                        <TextBlock x:Name="PracticePromptText"
+                                   Margin="0,8,0,10"
+                                   FontSize="16" TextWrapping="Wrap" />
+                        <DockPanel LastChildFill="False">
+                            <TextBox x:Name="PracticeAnswerText"
+                                     MinWidth="120" MaxWidth="240"
+                                     Padding="6" FontSize="16"
+                                     VerticalContentAlignment="Center"
+                                     AutomationProperties.Name="Your answer" />
+                            <Button x:Name="SubmitAnswerButton"
+                                    Content="Check answer"
+                                    Margin="8,0,0,0" Padding="12,6"
+                                    Click="OnSubmitAnswer" />
+                        </DockPanel>
+                        <TextBlock x:Name="PracticeFeedbackText"
+                                   Margin="0,8,0,0"
+                                   FontSize="15" TextWrapping="Wrap"
+                                   AutomationProperties.LiveSetting="Polite" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
