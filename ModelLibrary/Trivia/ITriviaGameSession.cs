@@ -6,8 +6,8 @@ public interface ITriviaGameSession
     int AnsweredQuestionCount { get; }
     int TotalQuestionCount { get; }
     bool IsComplete { get; }
+    TriviaQuestion CurrentQuestion { get; }
 
-    IReadOnlyList<TriviaBoardCategory> GetBoard();
-    TriviaQuestion SelectQuestion(string questionId);
-    TriviaAnswerResult SubmitAnswer(string answer);
+    TriviaAnswerResult SubmitAnswer(int answerIndex);
+    TriviaQuestion AdvanceToNextQuestion();
 }

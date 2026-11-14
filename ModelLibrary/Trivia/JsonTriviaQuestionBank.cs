@@ -34,14 +34,14 @@ public sealed class JsonTriviaQuestionBank : ITriviaQuestionBank
         if (questions.Any(question =>
                 question is null
                 || string.IsNullOrWhiteSpace(question.Id)
-                || string.IsNullOrWhiteSpace(question.Category)
-                || string.IsNullOrWhiteSpace(question.Clue)
-                || string.IsNullOrWhiteSpace(question.CorrectAnswer)
-                || question.AcceptedAnswers is null
-                || question.AcceptedAnswers.Any(string.IsNullOrWhiteSpace)))
+                || string.IsNullOrWhiteSpace(question.Question)
+                || question.Answers is null
+                || question.Answers.Count != 4
+                || question.Answers.Any(string.IsNullOrWhiteSpace)
+                || question.CorrectAnswerIndex is < 0 or >= 4))
         {
             throw new InvalidDataException(
-                "Each trivia question must have an ID, category, clue, correct answer, and valid alternate answers.");
+                "Each quiz question must have an ID, question text, four answers, and a correct-answer index from 0 to 3.");
         }
 
         if (questions.Select(question => question.Id).Distinct(StringComparer.OrdinalIgnoreCase).Count()

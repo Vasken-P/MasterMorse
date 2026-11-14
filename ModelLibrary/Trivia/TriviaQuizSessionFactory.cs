@@ -1,7 +1,7 @@
 namespace MasterMorse.Models.Trivia;
 
-public sealed class JeopardyQuizGameFactory : ITriviaGameFactory
+public sealed class TriviaQuizSessionFactory : ITriviaGameFactory
 {
     public ITriviaGameSession Create(IReadOnlyList<TriviaQuestion> questionBank) =>
-        new JeopardyQuizSession(questionBank);
+        new TriviaQuizSession(questionBank);
 }
