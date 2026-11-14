@@ -11,9 +11,9 @@ MorseMaster aims to make learning Morse code accessible. It currently includes a
 - [`AlphabetReferenceView`](MasterMorse/Views/AlphabetReferenceView.xaml) and [`AlphabetReferencePresenter`](PresenterLibrary/AlphabetReference/AlphabetReferencePresenter.cs) display the shared-model alphabet and General/Medical abbreviations reference.
 - [`ModelLibrary`](ModelLibrary/) is shared by features. It contains the guidebook lesson, example, and practice-question types, plus the content provider, and builds into `ModelLibrary.dll`.
 
-Each feature has its own view and presenter over the shared model. A shared top navigation bar links Home, Guidebook, Quiz, and Morse Reference. The current feature is highlighted and disabled; switching between features hides rather than closes their windows so their state is retained. The home screen also keeps its **Get Started** and **Play Quiz** actions. The guidebook displays its topics as cards on one scrollable page, followed by a text-answer practice question. Incorrect answers can be retried; a correct answer gives feedback and disables submission.
+Each feature has its own view and presenter over the shared model. A shared top navigation bar links Home, Guidebook, Quiz, and Morse Reference. The current feature is highlighted and disabled; switching between features hides rather than closes their windows so their state is retained. The home screen's **Get Started** action opens the guidebook. The guidebook displays its topics as cards on one scrollable page, followed by a text-answer practice question. Incorrect answers can be retried; a correct answer gives feedback and disables submission.
 
-Select **Play Quiz** for a separate questionnaire with ten randomly selected multiple-choice questions per session. Correct answers add 10 points, incorrect answers subtract 2, and the final screen shows the score and average.
+Select **Quiz** in the top navigation bar for a separate questionnaire with ten randomly selected multiple-choice questions per session. Correct answers add 10 points, incorrect answers subtract 2, and the final screen shows the score and average.
 
 ## Build and run
 

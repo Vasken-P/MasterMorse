@@ -28,9 +28,7 @@ public sealed class AppNavigationCoordinator
     {
         _titleView.NavigationBar.NavigationRequested += Navigate;
         var titlePresenter = new TitlePresenter(
-            _titleView,
-            () => Navigate(AppFeature.Guidebook),
-            () => Navigate(AppFeature.Quiz));
+            _titleView, () => Navigate(AppFeature.Guidebook));
         titlePresenter.Initialize();
         Navigate(AppFeature.Home);
     }

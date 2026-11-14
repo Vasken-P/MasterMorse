@@ -12,12 +12,8 @@ public partial class TitleView : Window, ITitleView
     }
 
     public event Action? GetStartedRequested;
-    public event Action? QuizRequested;
     public IAppNavigationBarView NavigationBar => NavigationBarControl;
 
     private void OnGetStarted(object sender, RoutedEventArgs e) =>
         GetStartedRequested?.Invoke();
-
-    private void OnQuizRequested(object sender, RoutedEventArgs e) =>
-        QuizRequested?.Invoke();
 }
