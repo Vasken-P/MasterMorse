@@ -4,72 +4,89 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Morse Code Translator"
-        Height="720" Width="900" MinHeight="480" MinWidth="360"
-        Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
-        Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+        Title="Master Morse"
+        Height="780" Width="900" MinHeight="480" MinWidth="360"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextPrimaryBrush}"
+        FontFamily="{StaticResource UiFont}"
         FontSize="14">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="MinWidth" Value="96"/>
-            <Setter Property="Margin" Value="4"/>
-            <Setter Property="Padding" Value="14,8"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-        <Style x:Key="PanelBorder" TargetType="Border">
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-            <Setter Property="Padding" Value="10"/>
-        </Style>
-        <Style TargetType="TextBox">
+        <Style x:Key="MorseBox" TargetType="TextBox">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource PrimaryBrush}"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="AcceptsReturn" Value="True"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="MinHeight" Value="110"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="FontSize" Value="17"/>
         </Style>
     </Window.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="24">
-            <TextBlock Text="Morse Code Translator" FontSize="28" FontWeight="Bold"/>
-            <TextBlock Text="Translate text into Morse code and Morse code back into text. Results update as you type."
-                       TextWrapping="Wrap" Opacity="0.75" Margin="0,4,0,20"/>
+        <StackPanel Margin="24,32,24,24" MaxWidth="760">
 
-            <WrapPanel Margin="0,0,0,20">
-                <Button Content="1v1 Easy (multiple choice)" Click="DuelEasy_Click" MinWidth="200"/>
-                <Button Content="1v1 Hard (typed answer)" Click="DuelHard_Click" MinWidth="200"/>
-            </WrapPanel>
+            <!-- Header -->
+            <ContentControl Content="{StaticResource MorseLogo}" HorizontalAlignment="Left" Margin="0,0,0,14"/>
+            <TextBlock Text="Master Morse" Style="{StaticResource TitleText}"/>
+            <TextBlock Text="Translate text into Morse code and back. Results update as you type."
+                       Style="{StaticResource SubtitleText}" Margin="0,4,0,24"/>
 
-            <TextBlock x:Name="InputHeaderText" FontWeight="SemiBold" Margin="0,0,0,6"/>
-            <Border Style="{StaticResource PanelBorder}" Margin="0,0,0,12">
-                <TextBox x:Name="InputTextBox" TextChanged="InputTextBox_TextChanged"/>
+            <!-- Duel entry -->
+            <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center" Margin="0,0,16,0">
+                        <TextBlock Text="Challenge a friend" FontSize="16" FontWeight="SemiBold"/>
+                        <TextBlock Text="Two players, one keyboard, five questions."
+                                   Style="{StaticResource SubtitleText}"/>
+                    </StackPanel>
+                    <WrapPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button Content="Easy · multiple choice" Style="{StaticResource TonalButton}"
+                                Click="DuelEasy_Click" Margin="0,4,8,4"/>
+                        <Button Content="Hard · typed answer" Style="{StaticResource TonalButton}"
+                                Click="DuelHard_Click" Margin="0,4,0,4"/>
+                    </WrapPanel>
+                </Grid>
             </Border>
 
-            <WrapPanel Margin="0,0,0,12">
-                <Button Content="Translate" Click="Translate_Click"/>
-                <Button Content="⇅ Swap" Click="Swap_Click"/>
-                <Button Content="Clear" Click="Clear_Click"/>
-            </WrapPanel>
-
-            <TextBlock x:Name="OutputHeaderText" FontWeight="SemiBold" Margin="0,0,0,6"/>
-            <Border Style="{StaticResource PanelBorder}" Margin="0,0,0,12">
-                <TextBox x:Name="OutputTextBox" IsReadOnly="True"/>
+            <!-- Input -->
+            <Border Style="{StaticResource InputCard}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock x:Name="InputHeaderText" Style="{StaticResource SectionLabel}" Margin="0,0,0,8"/>
+                    <TextBox x:Name="InputTextBox" Style="{StaticResource MorseBox}"
+                             TextChanged="InputTextBox_TextChanged"/>
+                    <WrapPanel Margin="0,12,0,0">
+                        <Button Content="Translate" Style="{StaticResource PrimaryButton}" Click="Translate_Click"/>
+                        <Button Content="⇅ Swap" Click="Swap_Click"/>
+                        <Button Content="Clear" Style="{StaticResource TextButton}" Click="Clear_Click"/>
+                    </WrapPanel>
+                </StackPanel>
             </Border>
 
-            <WrapPanel Margin="0,0,0,12">
-                <Button Content="Copy" Click="Copy_Click"/>
-                <Button Content="Play" Click="Play_Click"/>
-                <Button x:Name="PauseButton" Content="Pause" Click="Pause_Click"/>
-                <Button Content="Stop" Click="Stop_Click"/>
-            </WrapPanel>
+            <!-- Output -->
+            <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock x:Name="OutputHeaderText" Style="{StaticResource SectionLabel}" Margin="0,0,0,8"/>
+                    <TextBox x:Name="OutputTextBox" Style="{StaticResource MorseBox}" IsReadOnly="True"/>
+                    <WrapPanel Margin="0,12,0,0">
+                        <Button Content="Copy" Click="Copy_Click"/>
+                        <Button Content="▶ Play" Style="{StaticResource PrimaryButton}" Click="Play_Click"/>
+                        <Button x:Name="PauseButton" Content="Pause" Style="{StaticResource TonalButton}"
+                                Click="Pause_Click"/>
+                        <Button Content="Stop" Style="{StaticResource TextButton}" Click="Stop_Click"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
-            <TextBlock x:Name="ValidationText" Foreground="#C62828" TextWrapping="Wrap"/>
-            <TextBlock x:Name="StatusText" Opacity="0.75" TextWrapping="Wrap" Margin="0,4,0,20"/>
+            <TextBlock x:Name="ValidationText" Foreground="{StaticResource ErrorBrush}" TextWrapping="Wrap"/>
+            <TextBlock x:Name="StatusText" Style="{StaticResource SubtitleText}" Margin="0,4,0,0"/>
         </StackPanel>
     </ScrollViewer>
 </Window>
