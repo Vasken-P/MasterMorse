@@ -7,17 +7,22 @@ public sealed class GuidebookPresenter
 {
     private readonly IGuidebookView _view;
     private readonly IGuidebookContentProvider _contentProvider;
+    private readonly Action _returnToTitle;
     private MorsePracticeQuestion? _practiceQuestion;
 
-    public GuidebookPresenter(IGuidebookView view, IGuidebookContentProvider contentProvider)
+    public GuidebookPresenter(
+        IGuidebookView view,
+        IGuidebookContentProvider contentProvider,
+        Action returnToTitle)
     {
         _view = view;
         _contentProvider = contentProvider;
+        _returnToTitle = returnToTitle;
     }
 
     public void Initialize()
     {
-        _view.Title = "MasterMorse";
+        _view.Title = "MorseMaster - Guidebook";
         var lessons = _contentProvider.GetLessons();
 
         if (lessons.Count == 0)
@@ -27,6 +32,7 @@ public sealed class GuidebookPresenter
 
         _practiceQuestion = _contentProvider.GetPracticeQuestion();
         _view.PracticeAnswerSubmitted += SubmitPracticeAnswer;
+        _view.ReturnRequested += _returnToTitle;
         _view.DisplayLessons(lessons);
         _view.DisplayPracticeQuestion(_practiceQuestion.Prompt);
         _view.SetPracticeSubmissionEnabled(true);

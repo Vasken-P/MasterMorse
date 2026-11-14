@@ -7,6 +7,7 @@ public interface IGuidebookView
     string Title { get; set; }
 
     event Action<string>? PracticeAnswerSubmitted;
+    event Action? ReturnRequested;
 
     void DisplayLessons(IReadOnlyList<GuidebookLesson> lessons);
     void DisplayPracticeQuestion(string prompt);

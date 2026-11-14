@@ -16,6 +16,7 @@ public partial class GuidebookView : Window, IGuidebookView
     }
 
     public event Action<string>? PracticeAnswerSubmitted;
+    public event Action? ReturnRequested;
 
     public void DisplayLessons(IReadOnlyList<GuidebookLesson> lessons)
     {
@@ -42,4 +43,7 @@ public partial class GuidebookView : Window, IGuidebookView
 
     private void OnSubmitAnswer(object sender, RoutedEventArgs e) =>
         PracticeAnswerSubmitted?.Invoke(PracticeAnswerText.Text);
+
+    private void OnReturnToTitle(object sender, RoutedEventArgs e) =>
+        ReturnRequested?.Invoke();
 }

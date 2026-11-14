@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MasterMorse" Height="700" Width="900"
+        Title="MorseMaster - Guidebook" Height="700" Width="900"
         MinHeight="560" MinWidth="680">
     <Grid Margin="24">
         <Grid.RowDefinitions>
@@ -13,6 +13,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0,0,0,16">
+            <Button Content="Back to title" HorizontalAlignment="Left"
+                    Padding="12,6" Margin="0,0,0,12"
+                    Click="OnReturnToTitle" />
             <TextBlock Text="Morse code guidebook"
                        FontSize="26" FontWeight="SemiBold" />
             <TextBlock Text="Learn the signals, read a message, then try it yourself."
