@@ -11,11 +11,11 @@ public partial class TitleView : Window, ITitleView
     }
 
     public event Action? GetStartedRequested;
-    public event Action? JeopardyQuizRequested;
+    public event Action? QuizRequested;
 
     private void OnGetStarted(object sender, RoutedEventArgs e) =>
         GetStartedRequested?.Invoke();
 
     private void OnQuizRequested(object sender, RoutedEventArgs e) =>
-        JeopardyQuizRequested?.Invoke();
+        QuizRequested?.Invoke();
 }

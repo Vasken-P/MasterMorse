@@ -1,8 +1,8 @@
 <Window x:Class="MasterMorse.Views.TriviaQuizView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MorseMaster - Jeopardy Quiz" Height="760" Width="1000"
-        MinHeight="600" MinWidth="720">
+        Title="MorseMaster - Quiz" Height="700" Width="900"
+        MinHeight="560" MinWidth="680">
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -10,100 +10,46 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0,0,0,18">
-            <TextBlock Text="MorseMaster Jeopardy Quiz"
+            <TextBlock Text="MorseMaster Quiz"
                        FontSize="26" FontWeight="SemiBold" />
-            <TextBlock Text="Choose a clue, enter your answer, and see how many points you earn."
+            <TextBlock Text="Choose one answer for each question."
                        Margin="0,4,0,0" Foreground="DimGray"
                        TextWrapping="Wrap" />
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <Grid x:Name="BoardPanel">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" Margin="0,0,0,12">
+            <StackPanel x:Name="QuestionPanel" MaxWidth="720"
+                        HorizontalAlignment="Center" VerticalAlignment="Top">
+                <DockPanel Margin="0,0,0,16">
                     <TextBlock x:Name="ProgressText" DockPanel.Dock="Left"
                                FontSize="16" VerticalAlignment="Center" />
                     <TextBlock x:Name="ScoreText" DockPanel.Dock="Right"
                                FontSize="18" FontWeight="SemiBold" />
                 </DockPanel>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Disabled">
-                    <ItemsControl x:Name="CategoriesList">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="280" Margin="0,0,12,12"
-                                        Padding="12" BorderBrush="#D0D0D0"
-                                        BorderThickness="1" CornerRadius="6">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Name}"
-                                                   FontSize="17" FontWeight="SemiBold"
-                                                   TextWrapping="Wrap" Margin="0,0,0,8" />
-                                        <ItemsControl ItemsSource="{Binding Tiles}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <UniformGrid Columns="3" />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Button Content="{Binding ClueNumber}"
-                                                            Tag="{Binding QuestionId}"
-                                                            IsEnabled="{Binding CanSelect}"
-                                                            MinHeight="56" Margin="4"
-                                                            FontSize="18" FontWeight="SemiBold"
-                                                            Click="OnClueTileSelected" />
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
 
-            <StackPanel x:Name="CluePanel" Visibility="Collapsed"
-                        MaxWidth="720" HorizontalAlignment="Center"
-                        VerticalAlignment="Top">
-                <TextBlock x:Name="ClueScoreText" FontSize="18"
-                           FontWeight="SemiBold" Margin="0,4,0,20" />
                 <Border Padding="24" BorderBrush="#D0D0D0" BorderThickness="1"
                         CornerRadius="6">
                     <StackPanel>
-                        <TextBlock x:Name="ClueCategoryText"
-                                   FontSize="18" FontWeight="SemiBold" />
-                        <TextBlock x:Name="ClueText" Margin="0,12,0,18"
-                                   FontSize="22" TextWrapping="Wrap" />
-                        <TextBlock Text="Your answer" FontWeight="SemiBold" />
-                        <TextBox x:Name="AnswerInput" Margin="0,6,0,12"
-                                 Padding="8" FontSize="16"
-                                 AutomationProperties.Name="Your answer" />
+                        <TextBlock x:Name="QuestionText" FontSize="22"
+                                   TextWrapping="Wrap" Margin="0,0,0,16" />
+                        <StackPanel x:Name="AnswersPanel" />
                         <Button x:Name="SubmitAnswerButton" Content="Submit answer"
                                 HorizontalAlignment="Left" Padding="16,8"
-                                Click="OnSubmitAnswer" />
+                                Margin="0,12,0,0" Click="OnSubmitAnswer" />
                         <TextBlock x:Name="AnswerFeedbackText"
                                    Margin="0,12,0,0" FontSize="16"
                                    TextWrapping="Wrap" />
-                        <Button x:Name="BackToBoardButton" Content="Back to board"
+                        <Button x:Name="NextQuestionButton" Content="Next question"
                                 HorizontalAlignment="Left" Padding="16,8"
                                 Margin="0,16,0,0" Visibility="Collapsed"
-                                Click="OnBackToBoard" />
+                                Click="OnNextQuestion" />
                     </StackPanel>
                 </Border>
             </StackPanel>
 
             <StackPanel x:Name="ResultsPanel" Visibility="Collapsed"
                         HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Congratulations! You finished all 10 clues."
+                <TextBlock Text="Congratulations! You finished all 10 questions."
                            FontSize="26" FontWeight="SemiBold"
                            TextAlignment="Center" TextWrapping="Wrap" />
                 <TextBlock x:Name="FinalScoreText" Margin="0,18,0,0"

@@ -21,7 +21,7 @@ public partial class App : Application
         var titlePresenter = new TitlePresenter(
             titleView,
             () => OpenGuidebook(titleView),
-            () => OpenJeopardyQuiz(titleView));
+            () => OpenQuiz(titleView));
         titlePresenter.Initialize();
         MainWindow = titleView;
         titleView.Show();
@@ -38,13 +38,13 @@ public partial class App : Application
         titleView.Hide();
     }
 
-    private static void OpenJeopardyQuiz(TitleView titleView)
+    private static void OpenQuiz(TitleView titleView)
     {
         var quizView = new TriviaQuizView();
         var presenter = new TriviaQuizPresenter(
             quizView,
             new JsonTriviaQuestionBank(),
-            new JeopardyQuizGameFactory(),
+            new TriviaQuizSessionFactory(),
             quizView.Close);
         if (!presenter.Initialize())
         {

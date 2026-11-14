@@ -25,7 +25,7 @@ public sealed class TriviaQuizPresenter
 
     public bool Initialize()
     {
-        _view.Title = "MorseMaster - Jeopardy Quiz";
+        _view.Title = "MorseMaster - Quiz";
 
         try
         {
@@ -38,25 +38,23 @@ public sealed class TriviaQuizPresenter
             return false;
         }
 
-        _view.ClueSelected += SelectClue;
+        _view.AnswerSelected += OnAnswerSelected;
         _view.AnswerSubmitted += SubmitAnswer;
-        _view.BoardRequested += ShowBoard;
+        _view.NextQuestionRequested += ShowNextQuestion;
         _view.ReturnToTitleRequested += _returnToTitle;
-        ShowBoard();
+        ShowCurrentQuestion();
         return true;
     }
 
-    private void SelectClue(string questionId)
+    private void OnAnswerSelected(int answerIndex)
     {
-        var game = GetGame();
-        var question = game.SelectQuestion(questionId);
-        _view.DisplayClue(question, game.Score, game.AnsweredQuestionCount, game.TotalQuestionCount);
+        _view.SetAnswerSubmissionEnabled(true);
     }
 
-    private void SubmitAnswer(string answer)
+    private void SubmitAnswer(int answerIndex)
     {
         var game = GetGame();
-        var result = game.SubmitAnswer(answer);
+        var result = game.SubmitAnswer(answerIndex);
 
         if (result.IsComplete)
         {
@@ -67,11 +65,22 @@ public sealed class TriviaQuizPresenter
         _view.DisplayAnswerResult(result);
     }
 
-    private void ShowBoard()
+    private void ShowNextQuestion()
     {
         var game = GetGame();
-        _view.DisplayBoard(
-            game.GetBoard(), game.Score, game.AnsweredQuestionCount, game.TotalQuestionCount);
+        game.AdvanceToNextQuestion();
+        ShowCurrentQuestion();
+    }
+
+    private void ShowCurrentQuestion()
+    {
+        var game = GetGame();
+        _view.DisplayQuestion(
+            game.CurrentQuestion,
+            game.AnsweredQuestionCount + 1,
+            game.TotalQuestionCount,
+            game.Score);
+        _view.SetAnswerSubmissionEnabled(false);
     }
 
     private ITriviaGameSession GetGame() =>

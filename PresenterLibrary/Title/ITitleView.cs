@@ -4,5 +4,5 @@ public interface ITitleView
 {
     string Title { get; set; }
     event Action? GetStartedRequested;
-    event Action? JeopardyQuizRequested;
+    event Action? QuizRequested;
 }
