@@ -6,7 +6,7 @@ using MasterMorse.Presenters.Guidebook;
 namespace MasterMorse.Views;
 
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// Interaction logic for GuidebookView.xaml
 /// </summary>
 public partial class GuidebookView : Window, IGuidebookView
 {
@@ -15,17 +15,16 @@ public partial class GuidebookView : Window, IGuidebookView
         InitializeComponent();
     }
 
-    public event Action? PreviousLessonRequested;
-    public event Action? NextLessonRequested;
     public event Action<string>? PracticeAnswerSubmitted;
 
-    public void DisplayLesson(GuidebookLesson lesson, int lessonNumber, int totalLessons)
+    public void DisplayLessons(IReadOnlyList<GuidebookLesson> lessons)
     {
-        LessonCountText.Text = $"Lesson {lessonNumber} of {totalLessons}";
-        LessonTitleText.Text = lesson.Title;
-        LessonExplanationText.Text = lesson.Explanation;
-        ExamplesList.ItemsSource = lesson.Examples;
-        PracticePromptText.Text = lesson.PracticeQuestion.Prompt;
+        LessonsList.ItemsSource = lessons;
+    }
+
+    public void DisplayPracticeQuestion(string prompt)
+    {
+        PracticePromptText.Text = prompt;
         PracticeAnswerText.Clear();
         PracticeFeedbackText.Text = string.Empty;
     }
@@ -36,22 +35,10 @@ public partial class GuidebookView : Window, IGuidebookView
         PracticeFeedbackText.Foreground = isCorrect ? Brushes.DarkGreen : Brushes.DarkRed;
     }
 
-    public void SetNavigationEnabled(bool canGoPrevious, bool canGoNext)
-    {
-        PreviousLessonButton.IsEnabled = canGoPrevious;
-        NextLessonButton.IsEnabled = canGoNext;
-    }
-
     public void SetPracticeSubmissionEnabled(bool isEnabled)
     {
         SubmitAnswerButton.IsEnabled = isEnabled;
     }
-
-    private void OnPreviousLesson(object sender, RoutedEventArgs e) =>
-        PreviousLessonRequested?.Invoke();
-
-    private void OnNextLesson(object sender, RoutedEventArgs e) =>
-        NextLessonRequested?.Invoke();
 
     private void OnSubmitAnswer(object sender, RoutedEventArgs e) =>
         PracticeAnswerSubmitted?.Invoke(PracticeAnswerText.Text);

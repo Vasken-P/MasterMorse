@@ -5,62 +5,48 @@ public sealed class GuidebookContentProvider : IGuidebookContentProvider
     private static readonly IReadOnlyList<GuidebookLesson> Lessons = Array.AsReadOnly(
     [
         new GuidebookLesson(
+            "What is Morse code?",
+            "Morse code represents letters and numbers with patterns of short and long signals. You can listen to, see, or feel those signals.",
+            Array.Empty<MorseExample>()),
+        new GuidebookLesson(
             "Dots and dashes",
-            "Morse code represents each character with a pattern of short dots and long dashes. A dot lasts one time unit; a dash lasts three. Each letter has its own pattern.",
-            Array.AsReadOnly(
-            [
-                new MorseExample('E', ".", "one dot"),
-                new MorseExample('T', "-", "one dash"),
-                new MorseExample('A', ".-", "dot, then dash")
-            ]),
-            new MorsePracticeQuestion(
-                "Which character is represented by a single dot (.)?",
-                "E",
-                "Correct. E is the simplest Morse pattern: one dot.",
-                "Not quite. A single dot represents E.")),
+            "A dot (·) is a short signal. A dash (–) is a long signal. Together, they form a character's pattern.",
+            Array.Empty<MorseExample>()),
         new GuidebookLesson(
-            "Build patterns into letters",
-            "Letters combine dots and dashes in a particular order. Read each signal from left to right; changing the order changes the character.",
+            "Letters and numbers",
+            "Each letter and number has its own pattern. Read the signals in order, from left to right.",
             Array.AsReadOnly(
             [
-                new MorseExample('A', ".-", "dot, then dash"),
-                new MorseExample('N', "-.", "dash, then dot"),
-                new MorseExample('S', "...", "three dots"),
-                new MorseExample('K', "-.-", "dash, dot, dash")
-            ]),
-            new MorsePracticeQuestion(
-                "Which character is represented by dash, dot, dash (-.-)?",
-                "K",
-                "Correct. Dash, dot, dash is K.",
-                "Not quite. Dash, dot, dash is K.")),
+                new MorseExample('E', "·", "one dot"),
+                new MorseExample('T', "–", "one dash"),
+                new MorseExample('A', "·–", "dot, then dash"),
+                new MorseExample('5', "·····", "five dots")
+            ])),
         new GuidebookLesson(
-            "Numbers use the same signals",
-            "Numbers are also made from dots and dashes. Standard Morse digits each have five signals, so learn their complete pattern just like a letter.",
-            Array.AsReadOnly(
-            [
-                new MorseExample('1', ".----", "dot, then four dashes"),
-                new MorseExample('5', ".....", "five dots"),
-                new MorseExample('0', "-----", "five dashes")
-            ]),
-            new MorsePracticeQuestion(
-                "Which number is represented by five dots (.....)?",
-                "5",
-                "Correct. Five dots represent the number 5.",
-                "Not quite. Five dots represent the number 5.")),
+            "Signal timing",
+            "Use the dot as one time unit. A dash lasts three time units: three times as long as a dot.",
+            Array.Empty<MorseExample>()),
         new GuidebookLesson(
-            "Pauses keep a message readable",
-            "Timing separates the signals: leave one time unit between dots and dashes in the same character, three units between characters, and seven units between words. The pauses are silent; they are not extra dots or dashes.",
-            Array.AsReadOnly(
-            [
-                new MorseExample('E', ".", "one dot"),
-                new MorseExample('T', "-", "one dash")
-            ]),
-            new MorsePracticeQuestion(
-                "How many time units of silence separate two characters?",
-                "3",
-                "Correct. A three-unit pause marks the space between characters.",
-                "Not quite. A three-unit pause separates characters; seven units separate words."))
+            "Pauses and spacing",
+            "Silence separates the signals: pause for one time unit within a letter, three units between letters, and seven units between words.",
+            Array.Empty<MorseExample>()),
+        new GuidebookLesson(
+            "Reading a message",
+            "Read ···   –––   ··· as three groups: ··· is S, ––– is O, and ··· is S. Together they spell SOS.",
+            Array.Empty<MorseExample>()),
+        new GuidebookLesson(
+            "Sending a message",
+            "Send Morse code with sound, light, or taps. Keep the short and long signals and the pauses between them clear.",
+            Array.Empty<MorseExample>())
     ]);
 
+    private static readonly MorsePracticeQuestion PracticeQuestion = new(
+        "Which letter is represented by ·– (dot, then dash)?",
+        "A",
+        "Correct. ·– represents A.",
+        "Not quite. Look at the letters and numbers box, then try again.");
+
     public IReadOnlyList<GuidebookLesson> GetLessons() => Lessons;
+
+    public MorsePracticeQuestion GetPracticeQuestion() => PracticeQuestion;
 }

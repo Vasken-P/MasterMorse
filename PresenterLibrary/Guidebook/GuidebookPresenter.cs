@@ -7,8 +7,7 @@ public sealed class GuidebookPresenter
 {
     private readonly IGuidebookView _view;
     private readonly IGuidebookContentProvider _contentProvider;
-    private IReadOnlyList<GuidebookLesson> _lessons = Array.Empty<GuidebookLesson>();
-    private int _currentLessonIndex;
+    private MorsePracticeQuestion? _practiceQuestion;
 
     public GuidebookPresenter(IGuidebookView view, IGuidebookContentProvider contentProvider)
     {
@@ -19,40 +18,24 @@ public sealed class GuidebookPresenter
     public void Initialize()
     {
         _view.Title = "MasterMorse";
-        _lessons = _contentProvider.GetLessons();
+        var lessons = _contentProvider.GetLessons();
 
-        if (_lessons.Count == 0)
+        if (lessons.Count == 0)
         {
             throw new InvalidOperationException("The guidebook must contain at least one lesson.");
         }
 
-        _view.PreviousLessonRequested += ShowPreviousLesson;
-        _view.NextLessonRequested += ShowNextLesson;
+        _practiceQuestion = _contentProvider.GetPracticeQuestion();
         _view.PracticeAnswerSubmitted += SubmitPracticeAnswer;
-        ShowCurrentLesson();
-    }
-
-    private void ShowPreviousLesson()
-    {
-        if (_currentLessonIndex > 0)
-        {
-            _currentLessonIndex--;
-            ShowCurrentLesson();
-        }
-    }
-
-    private void ShowNextLesson()
-    {
-        if (_currentLessonIndex < _lessons.Count - 1)
-        {
-            _currentLessonIndex++;
-            ShowCurrentLesson();
-        }
+        _view.DisplayLessons(lessons);
+        _view.DisplayPracticeQuestion(_practiceQuestion.Prompt);
+        _view.SetPracticeSubmissionEnabled(true);
     }
 
     private void SubmitPracticeAnswer(string answer)
     {
-        var question = _lessons[_currentLessonIndex].PracticeQuestion;
+        var question = _practiceQuestion
+            ?? throw new InvalidOperationException("The guidebook has not been initialized.");
         var isCorrect = question.IsCorrect(answer);
 
         _view.ShowPracticeFeedback(
@@ -63,15 +46,5 @@ public sealed class GuidebookPresenter
         {
             _view.SetPracticeSubmissionEnabled(false);
         }
-    }
-
-    private void ShowCurrentLesson()
-    {
-        var lesson = _lessons[_currentLessonIndex];
-        _view.DisplayLesson(lesson, _currentLessonIndex + 1, _lessons.Count);
-        _view.SetNavigationEnabled(
-            canGoPrevious: _currentLessonIndex > 0,
-            canGoNext: _currentLessonIndex < _lessons.Count - 1);
-        _view.SetPracticeSubmissionEnabled(true);
     }
 }

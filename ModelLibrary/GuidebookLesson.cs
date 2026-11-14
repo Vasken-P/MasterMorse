@@ -3,8 +3,7 @@ namespace MasterMorse.Models;
 public sealed record GuidebookLesson(
     string Title,
     string Explanation,
-    IReadOnlyList<MorseExample> Examples,
-    MorsePracticeQuestion PracticeQuestion);
+    IReadOnlyList<MorseExample> Examples);
 
 public sealed record MorseExample(char Character, string Pattern, string Reading);
 
