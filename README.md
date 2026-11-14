@@ -6,14 +6,14 @@ MorseMaster aims to make learning Morse code accessible. It currently includes a
 
 - [`MasterMorse`](MasterMorse/) contains the .NET 10 WPF application and [`GuidebookView`](MasterMorse/Views/GuidebookView.xaml), the guidebook's dedicated view.
 - [`TitleView`](MasterMorse/Views/TitleView.xaml) and [`TitlePresenter`](PresenterLibrary/Title/TitlePresenter.cs) display the title screen and request navigation to the guidebook. [`App`](MasterMorse/App.xaml.cs) connects the views and presenters.
-- The title screen also opens the separate Jeopardy quiz. Its WPF view is [`TriviaQuizView`](MasterMorse/Views/TriviaQuizView.xaml), its presenter is in [`PresenterLibrary/Trivia`](PresenterLibrary/Trivia/), and its question bank is [`MasterMorse/lib/questions.json`](MasterMorse/lib/questions.json).
+- The title screen also opens the separate multiple-choice quiz. Its WPF view is [`TriviaQuizView`](MasterMorse/Views/TriviaQuizView.xaml), its presenter is in [`PresenterLibrary/Trivia`](PresenterLibrary/Trivia/), and its question bank is [`MasterMorse/lib/questions.json`](MasterMorse/lib/questions.json).
 - [`PresenterLibrary/Guidebook`](PresenterLibrary/Guidebook/) contains [`IGuidebookView`](PresenterLibrary/Guidebook/IGuidebookView.cs) and [`GuidebookPresenter`](PresenterLibrary/Guidebook/GuidebookPresenter.cs). The presenter loads guidebook content and checks answers through the model; the view reports user actions through its interface.
 - [`AlphabetReferenceView`](MasterMorse/Views/AlphabetReferenceView.xaml) and [`AlphabetReferencePresenter`](PresenterLibrary/AlphabetReference/AlphabetReferencePresenter.cs) display the shared-model alphabet and abbreviations reference. The page is not yet linked from navigation.
 - [`ModelLibrary`](ModelLibrary/) is shared by features. It contains the guidebook lesson, example, and practice-question types, plus the content provider, and builds into `ModelLibrary.dll`.
 
 Each feature has its own view and presenter over the shared model. Select **Get Started** on the title screen to open the guidebook, or **Back to title** to return. The guidebook displays its topics as cards on one scrollable page, followed by a text-answer practice question. Incorrect answers can be retried; a correct answer gives feedback and disables submission.
 
-Select **Play Jeopardy Quiz** for a separate game with ten randomly selected category clues per session. Correct answers add 10 points, incorrect answers subtract 2, and the final screen shows the score and average.
+Select **Play Quiz** for a separate questionnaire with ten randomly selected multiple-choice questions per session. Correct answers add 10 points, incorrect answers subtract 2, and the final screen shows the score and average.
 
 ## Build and run
 
