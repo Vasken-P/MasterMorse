@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using MasterMorse.Models;
+using MasterMorse.Presenters.Navigation;
 using MasterMorse.Presenters.Guidebook;
 
 namespace MasterMorse.Views;
@@ -17,6 +18,7 @@ public partial class GuidebookView : Window, IGuidebookView
 
     public event Action<string>? PracticeAnswerSubmitted;
     public event Action? ReturnRequested;
+    public IAppNavigationBarView NavigationBar => NavigationBarControl;
 
     public void DisplayLessons(IReadOnlyList<GuidebookLesson> lessons)
     {

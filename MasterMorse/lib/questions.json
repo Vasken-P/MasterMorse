@@ -1,0 +1,45 @@
+{
+  "questions": [
+    { "id": "basics-01", "question": "What is the short Morse signal called?", "answers": ["Dash", "Dot", "Pause", "Letter"], "correctAnswerIndex": 1 },
+    { "id": "basics-02", "question": "What is the long Morse signal called?", "answers": ["Dot", "Dash", "Word gap", "Letter"], "correctAnswerIndex": 1 },
+    { "id": "basics-03", "question": "Which two signal types form standard Morse patterns?", "answers": ["Numbers and spaces", "Dots and dashes", "Letters and words", "Sounds and taps"], "correctAnswerIndex": 1 },
+    { "id": "basics-04", "question": "How many time units long is a dot?", "answers": ["3", "7", "1", "5"], "correctAnswerIndex": 2 },
+    { "id": "basics-05", "question": "How many time units long is a dash?", "answers": ["1", "2", "3", "7"], "correctAnswerIndex": 2 },
+    { "id": "basics-06", "question": "What does each letter have in Morse code?", "answers": ["A unique signal pattern", "The same code", "A word pause", "A number"], "correctAnswerIndex": 0 },
+
+    { "id": "decode-01", "question": "Which letter is ·-?", "answers": ["A", "N", "T", "E"], "correctAnswerIndex": 0 },
+    { "id": "decode-02", "question": "Which letter is -···?", "answers": ["B", "D", "V", "U"], "correctAnswerIndex": 0 },
+    { "id": "decode-03", "question": "Which letter is -·-·?", "answers": ["G", "C", "K", "R"], "correctAnswerIndex": 1 },
+    { "id": "decode-04", "question": "Which letter is ···?", "answers": ["H", "S", "O", "I"], "correctAnswerIndex": 1 },
+    { "id": "decode-05", "question": "Which letter is ---?", "answers": ["T", "O", "M", "0"], "correctAnswerIndex": 1 },
+    { "id": "decode-06", "question": "Which letter is ·-·?", "answers": ["R", "L", "F", "A"], "correctAnswerIndex": 0 },
+
+    { "id": "timing-01", "question": "How long is a dash compared with a dot?", "answers": ["The same length", "Twice as long", "Three times as long", "Seven times as long"], "correctAnswerIndex": 2 },
+    { "id": "timing-02", "question": "How many units of silence separate signals inside one character?", "answers": ["3", "2", "1", "7"], "correctAnswerIndex": 2 },
+    { "id": "timing-03", "question": "How many units of silence separate two letters?", "answers": ["1", "2", "3", "7"], "correctAnswerIndex": 2 },
+    { "id": "timing-04", "question": "How many units of silence separate two words?", "answers": ["3", "1", "7", "5"], "correctAnswerIndex": 2 },
+    { "id": "timing-05", "question": "What separates one Morse character from the next?", "answers": ["A pause", "A dash", "A dot", "No gap"], "correctAnswerIndex": 0 },
+    { "id": "timing-06", "question": "What do spaces between written Morse groups help identify?", "answers": ["Word boundaries", "Letter boundaries", "Signal lengths", "Categories"], "correctAnswerIndex": 1 },
+
+    { "id": "alphabet-01", "question": "Which letter is represented by ·?", "answers": ["E", "T", "I", "A"], "correctAnswerIndex": 0 },
+    { "id": "alphabet-02", "question": "Which letter is represented by -?", "answers": ["M", "T", "E", "N"], "correctAnswerIndex": 1 },
+    { "id": "alphabet-03", "question": "Which letter is represented by ·-?", "answers": ["N", "A", "R", "W"], "correctAnswerIndex": 1 },
+    { "id": "alphabet-04", "question": "Which letter is represented by -·?", "answers": ["A", "N", "T", "M"], "correctAnswerIndex": 1 },
+    { "id": "alphabet-05", "question": "Which letter is represented by ····?", "answers": ["S", "H", "V", "I"], "correctAnswerIndex": 1 },
+    { "id": "alphabet-06", "question": "Which letter is represented by -·-·?", "answers": ["K", "C", "G", "Q"], "correctAnswerIndex": 1 },
+
+    { "id": "numbers-01", "question": "Which number is represented by ·····?", "answers": ["5", "0", "1", "9"], "correctAnswerIndex": 0 },
+    { "id": "numbers-02", "question": "Which number is represented by ·----?", "answers": ["7", "1", "2", "0"], "correctAnswerIndex": 1 },
+    { "id": "numbers-03", "question": "Which number is represented by -----?", "answers": ["5", "0", "8", "1"], "correctAnswerIndex": 1 },
+    { "id": "numbers-04", "question": "How many signals are in a standard Morse digit?", "answers": ["3", "4", "5", "7"], "correctAnswerIndex": 2 },
+    { "id": "numbers-05", "question": "Which digit is represented by -····?", "answers": ["4", "6", "8", "9"], "correctAnswerIndex": 1 },
+    { "id": "numbers-06", "question": "Which number is represented by ····-?", "answers": ["4", "5", "6", "1"], "correctAnswerIndex": 0 },
+
+    { "id": "sending-01", "question": "Which is a way to send Morse that you can hear?", "answers": ["Sound", "Light", "Printed text", "Color"], "correctAnswerIndex": 0 },
+    { "id": "sending-02", "question": "Which is a way to send Morse that you can see?", "answers": ["A whistle", "Light", "A spoken word", "A printed paragraph"], "correctAnswerIndex": 1 },
+    { "id": "sending-03", "question": "Which physical action can represent Morse signals by touch?", "answers": ["Drawing", "Taps", "Reading", "Waving"], "correctAnswerIndex": 1 },
+    { "id": "sending-04", "question": "What must remain clear when sending Morse with sound, light, or taps?", "answers": ["Only the message volume", "Signal lengths and pauses", "The sender's name", "The color of the device"], "correctAnswerIndex": 1 },
+    { "id": "sending-05", "question": "In ··· --- ···, which letter does the middle group represent?", "answers": ["S", "O", "T", "I"], "correctAnswerIndex": 1 },
+    { "id": "sending-06", "question": "What well-known distress message is ··· --- ···?", "answers": ["SOS", "CQ", "OK", "SK"], "correctAnswerIndex": 0 }
+  ]
+}

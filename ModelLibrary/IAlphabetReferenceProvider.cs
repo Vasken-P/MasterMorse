@@ -2,5 +2,5 @@ namespace MasterMorse.Models;
 
 public interface IAlphabetReferenceProvider
 {
-    IReadOnlyList<AlphabetReferenceEntry> GetEntries();
+    IReadOnlyList<MorseReferenceSection> GetSections(ReferenceMode mode);
 }
