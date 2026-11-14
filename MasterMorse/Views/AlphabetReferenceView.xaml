@@ -1,0 +1,124 @@
+<Window x:Class="MasterMorse.Views.AlphabetReferenceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:navigation="clr-namespace:MasterMorse.Views.Navigation"
+        Title="MorseMaster - Alphabet reference" Height="700" Width="900"
+        MinHeight="560" MinWidth="680">
+    <Window.Resources>
+        <DataTemplate x:Key="ReferenceEntryTemplate">
+            <Button Width="160" Height="160" Margin="6"
+                    Padding="10" Cursor="Hand"
+                    Background="White" BorderBrush="#D0D0D0"
+                    BorderThickness="1" Tag="{Binding}"
+                    AutomationProperties.Name="{Binding Label}"
+                    ToolTip="Play Morse code"
+                    Click="OnEntryClicked">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="NodeBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <StackPanel HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Label}"
+                                           FontSize="24" FontWeight="SemiBold"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Pattern}" FontSize="20"
+                                           Margin="0,6,0,0"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Meaning}" FontSize="12"
+                                           Margin="0,6,0,0"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NodeBorder" Property="Background" Value="#F4F7FA" />
+                                <Setter TargetName="NodeBorder" Property="BorderBrush" Value="#315F90" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="NodeBorder" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="NodeBorder" Property="Opacity" Value="0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <navigation:AppNavigationBar x:Name="NavigationBarControl" />
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <TextBlock Text="Morse code reference"
+                       FontSize="26" FontWeight="SemiBold" />
+            <TextBlock Text="Browse letters and common abbreviations."
+                       Margin="0,4,0,0" Foreground="DimGray"
+                       TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                <RadioButton x:Name="AlphabetModeButton"
+                             Content="Alphabet" GroupName="ReferenceMode"
+                             IsChecked="True" Margin="0,0,16,0"
+                             Checked="OnAlphabetModeSelected" />
+                <RadioButton x:Name="AbbreviationsModeButton"
+                             Content="Abbreviations" GroupName="ReferenceMode"
+                             Checked="OnAbbreviationsModeSelected" />
+            </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl x:Name="SectionsList">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}"
+                                       FontSize="20" FontWeight="SemiBold"
+                                       Margin="6,0,6,8">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Title}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <ItemsControl ItemsSource="{Binding Entries}"
+                                          ItemTemplate="{StaticResource ReferenceEntryTemplate}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -12,4 +12,10 @@
     <ProjectReference Include="..\PresenterLibrary\PresenterLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="lib\questions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
