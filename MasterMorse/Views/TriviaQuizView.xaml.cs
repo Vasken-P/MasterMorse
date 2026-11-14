@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MasterMorse.Models.Trivia;
+using MasterMorse.Presenters.Navigation;
 using MasterMorse.Presenters.Trivia;
 
 namespace MasterMorse.Views;
@@ -20,6 +21,7 @@ public partial class TriviaQuizView : Window, ITriviaQuizView
     public event Action<int>? AnswerSubmitted;
     public event Action? NextQuestionRequested;
     public event Action? ReturnToTitleRequested;
+    public IAppNavigationBarView NavigationBar => NavigationBarControl;
 
     public void DisplayQuestion(TriviaQuestion question, int questionNumber, int totalQuestionCount, int score)
     {

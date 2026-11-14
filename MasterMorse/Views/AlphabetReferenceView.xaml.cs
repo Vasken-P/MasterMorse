@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using MasterMorse.Models;
+using MasterMorse.Presenters.Navigation;
 using MasterMorse.Presenters.AlphabetReference;
 
 namespace MasterMorse.Views;
@@ -14,6 +15,7 @@ public partial class AlphabetReferenceView : Window, IAlphabetReferenceView
 
     public event Action<ReferenceMode>? ModeSelected;
     public event Action<MorseReferenceEntry>? EntrySelected;
+    public IAppNavigationBarView NavigationBar => NavigationBarControl;
 
     public void DisplaySections(IReadOnlyList<MorseReferenceSection> sections, ReferenceMode mode)
     {
