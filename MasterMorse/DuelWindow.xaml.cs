@@ -15,9 +15,8 @@ namespace MasterMorse;
 /// </summary>
 public partial class DuelWindow : Window, IMatchView
 {
-    private static readonly Brush SelectedBorder = Brushes.DodgerBlue;
-    private static readonly Brush CorrectFill = new SolidColorBrush(Color.FromRgb(0xC8, 0xE6, 0xC9));
-    private static readonly Brush WrongFill = new SolidColorBrush(Color.FromRgb(0xFF, 0xCD, 0xD2));
+    /// <summary>Looks up a brush from Theme.xaml so the palette lives in one place.</summary>
+    private static Brush ThemeBrush(string key) => (Brush)Application.Current.FindResource(key);
 
     private readonly Stopwatch _clock = Stopwatch.StartNew();
     private readonly DispatcherTimer _timer;
@@ -37,8 +36,12 @@ public partial class DuelWindow : Window, IMatchView
         EasyControls.Visibility = isEasy ? Visibility.Visible : Visibility.Collapsed;
         HardControls.Visibility = isEasy ? Visibility.Collapsed : Visibility.Visible;
 
-        _oneCard = new PlayerCard(OneScore, OneTimer, OneChoices, OneKeyedArea, OneKeyed, OneDecoded, OneFeedback);
-        _twoCard = new PlayerCard(TwoScore, TwoTimer, TwoChoices, TwoKeyedArea, TwoKeyed, TwoDecoded, TwoFeedback);
+        _oneCard = new PlayerCard(
+            OneScore, OneTimer, OneChoices, OneKeyedArea, OneKeyed, OneDecoded, OneFeedback,
+            ThemeBrush("PrimaryBrush"), ThemeBrush("PrimaryContainerBrush"));
+        _twoCard = new PlayerCard(
+            TwoScore, TwoTimer, TwoChoices, TwoKeyedArea, TwoKeyed, TwoDecoded, TwoFeedback,
+            ThemeBrush("Player2Brush"), ThemeBrush("Player2ContainerBrush"));
 
         _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
         _timer.Tick += (_, _) => Tick?.Invoke(Now);
@@ -236,6 +239,8 @@ public partial class DuelWindow : Window, IMatchView
         private readonly TextBlock _keyed;
         private readonly TextBlock _decoded;
         private readonly TextBlock _feedback;
+        private readonly Brush _accent;
+        private readonly Brush _accentContainer;
 
         public PlayerCard(
             TextBlock score,
@@ -244,8 +249,12 @@ public partial class DuelWindow : Window, IMatchView
             StackPanel keyedArea,
             TextBlock keyed,
             TextBlock decoded,
-            TextBlock feedback)
+            TextBlock feedback,
+            Brush accent,
+            Brush accentContainer)
         {
+            _accent = accent;
+            _accentContainer = accentContainer;
             _score = score;
             _timer = timer;
             _choices = choices;
@@ -291,31 +300,45 @@ public partial class DuelWindow : Window, IMatchView
                 var isSelected = i == state.SelectedChoice;
                 var isCorrect = round.RevealedAnswer is not null && code == round.RevealedAnswer;
 
-                Brush fill = Brushes.Transparent;
+                // Default: white card with a hairline outline. The selection uses the player's colour.
+                var fill = ThemeBrush("SurfaceBrush");
+                var border = ThemeBrush("OutlineBrush");
+                var thickness = 1.0;
                 if (round.Phase == MatchPhase.Revealing && isCorrect)
                 {
-                    fill = CorrectFill;
+                    fill = ThemeBrush("SuccessContainerBrush");
+                    border = ThemeBrush("SuccessBrush");
+                    thickness = 2;
                 }
                 else if (round.Phase == MatchPhase.Revealing && isSelected)
                 {
-                    fill = WrongFill;
+                    fill = ThemeBrush("ErrorContainerBrush");
+                    border = ThemeBrush("ErrorBrush");
+                    thickness = 2;
+                }
+                else if (isSelected)
+                {
+                    fill = _accentContainer;
+                    border = _accent;
+                    thickness = 2;
                 }
 
                 var label = new TextBlock
                 {
                     Text = $"{i + 1}.  {code}",
-                    FontFamily = new FontFamily("Consolas"),
+                    FontFamily = (FontFamily)Application.Current.FindResource("MonoFont"),
+                    Foreground = ThemeBrush("TextPrimaryBrush"),
                     FontSize = 22,
                     VerticalAlignment = VerticalAlignment.Center,
                 };
 
                 _choices.Children.Add(new Border
                 {
-                    CornerRadius = new CornerRadius(8),
-                    BorderThickness = new Thickness(isSelected ? 3 : 1),
-                    BorderBrush = isSelected ? SelectedBorder : Brushes.Gray,
+                    CornerRadius = new CornerRadius(10),
+                    BorderThickness = new Thickness(thickness),
+                    BorderBrush = border,
                     Background = fill,
-                    Padding = new Thickness(12, 8, 12, 8),
+                    Padding = new Thickness(14, 9, 14, 9),
                     Margin = new Thickness(0, 0, 0, 6),
                     Child = label,
                 });
