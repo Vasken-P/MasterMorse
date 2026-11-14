@@ -39,11 +39,17 @@ public partial class TriviaQuizView : Window, ITriviaQuizView
         {
             var answerButton = new RadioButton
             {
-                Content = question.Answers[index],
+                Content = new TextBlock
+                {
+                    Text = question.Answers[index],
+                    TextWrapping = TextWrapping.Wrap
+                },
                 Tag = index,
                 GroupName = "QuestionAnswers",
                 FontSize = 16,
-                Margin = new Thickness(0, 6, 0, 6)
+                Margin = new Thickness(8),
+                MinHeight = 56,
+                VerticalContentAlignment = VerticalAlignment.Center
             };
             answerButton.Checked += OnAnswerChoiceSelected;
             _answerButtons.Add(answerButton);
