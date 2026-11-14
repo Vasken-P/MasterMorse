@@ -1,5 +1,8 @@
 ﻿using System.Windows;
-using MasterMorse.Presenters;
+using MasterMorse.Models;
+using MasterMorse.Presenters.Guidebook;
+using MasterMorse.Presenters.Title;
+using MasterMorse.Views;
 
 namespace MasterMorse;
 
@@ -12,10 +15,21 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        var view = new MainWindow();
-        var presenter = new MainPresenter(view);
+        var titleView = new TitleView();
+        var titlePresenter = new TitlePresenter(titleView, () => OpenGuidebook(titleView));
+        titlePresenter.Initialize();
+        MainWindow = titleView;
+        titleView.Show();
+    }
+
+    private static void OpenGuidebook(TitleView titleView)
+    {
+        var guidebookView = new GuidebookView();
+        var presenter = new GuidebookPresenter(
+            guidebookView, new GuidebookContentProvider(), guidebookView.Close);
         presenter.Initialize();
-        MainWindow = view;
-        view.Show();
+        guidebookView.Closed += (_, _) => titleView.Show();
+        guidebookView.Show();
+        titleView.Hide();
     }
 }

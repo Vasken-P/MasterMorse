@@ -1,12 +1,16 @@
-# MasterMorse
+# MorseMaster
 
-MasterMorse aims to make learning Morse code accessible, with a translator and learning resources. The current project is a blank application shell; these features are not implemented yet.
+MorseMaster aims to make learning Morse code accessible. It currently includes a beginner guidebook with lessons on dots and dashes, letter and number patterns, Morse timing, and a short practice question.
 
 ## Project structure
 
-- [`MasterMorse`](MasterMorse/) contains the .NET 10 WPF application. [`MainWindow`](MasterMorse/MainWindow.xaml) is the view.
-- [`PresenterLibrary`](PresenterLibrary/) contains [`IMainView`](PresenterLibrary/IMainView.cs) and [`MainPresenter`](PresenterLibrary/MainPresenter.cs). The view implements the interface, and [`App`](MasterMorse/App.xaml.cs) connects it to the presenter at startup.
-- [`ModelLibrary`](ModelLibrary/) is a class library for future domain models and logic. The presenter references it as a project, so it builds into a DLL with the solution; no models are implemented yet.
+- [`MasterMorse`](MasterMorse/) contains the .NET 10 WPF application and [`GuidebookView`](MasterMorse/Views/GuidebookView.xaml), the guidebook's dedicated view.
+- [`TitleView`](MasterMorse/Views/TitleView.xaml) and [`TitlePresenter`](PresenterLibrary/Title/TitlePresenter.cs) display the title screen and request navigation to the guidebook. [`App`](MasterMorse/App.xaml.cs) connects the views and presenters.
+- [`PresenterLibrary/Guidebook`](PresenterLibrary/Guidebook/) contains [`IGuidebookView`](PresenterLibrary/Guidebook/IGuidebookView.cs) and [`GuidebookPresenter`](PresenterLibrary/Guidebook/GuidebookPresenter.cs). The presenter loads guidebook content and checks answers through the model; the view reports user actions through its interface.
+- [`AlphabetReferenceView`](MasterMorse/Views/AlphabetReferenceView.xaml) and [`AlphabetReferencePresenter`](PresenterLibrary/AlphabetReference/AlphabetReferencePresenter.cs) display the alphabet reference from the shared model. The page is not yet linked from navigation.
+- [`ModelLibrary`](ModelLibrary/) is shared by features. It contains the guidebook lesson, example, and practice-question types, plus the content provider, and builds into `ModelLibrary.dll`.
+
+Each feature has its own view and presenter over the shared model. Select **Get Started** on the title screen to open the guidebook, or **Back to title** to return. The guidebook displays its topics as cards on one scrollable page, followed by a text-answer practice question. Incorrect answers can be retried; a correct answer gives feedback and disables submission.
 
 ## Build and run
 
@@ -19,4 +23,4 @@ dotnet build MasterMorse.sln
 dotnet run --project MasterMorse/MasterMorse.csproj
 ```
 
-The application opens an empty window titled "MasterMorse". On non-Windows systems, cross-build with `dotnet build MasterMorse.sln -p:EnableWindowsTargeting=true`; running WPF requires Windows.
+On non-Windows systems, cross-build with `dotnet build MasterMorse.sln -p:EnableWindowsTargeting=true`; running WPF requires Windows.
