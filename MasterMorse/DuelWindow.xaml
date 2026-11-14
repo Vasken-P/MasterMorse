@@ -1,0 +1,153 @@
+<Window x:Class="MasterMorse.DuelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="1v1 Morse Duel"
+        Height="760" Width="1100" MinHeight="600" MinWidth="820"
+        Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+        Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+        FontSize="14">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="110"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="PanelBorder" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+            <Setter Property="Padding" Value="16"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Setup -->
+        <StackPanel x:Name="SetupPanel" Margin="32" MaxWidth="760" HorizontalAlignment="Left">
+            <TextBlock x:Name="SetupTitle" Text="1v1 Morse Duel" FontSize="28" FontWeight="Bold"/>
+            <TextBlock TextWrapping="Wrap" Opacity="0.75" Margin="0,4,0,20"
+                       Text="Two players share this keyboard. Both get the same five questions, and the highest score wins."/>
+
+            <!-- Shown only for the Easy mode the window was opened with -->
+            <Border x:Name="EasyControls" Style="{StaticResource PanelBorder}" Margin="0,0,0,16" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="Multiple choice: pick the Morse code for the letter" FontWeight="SemiBold"/>
+                    <TextBlock Text="Player 1: W = previous choice, A = next choice, D = submit"/>
+                    <TextBlock Text="Player 2: Up = previous choice, Down = next choice, Enter = submit"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Shown only for the Hard mode the window was opened with -->
+            <Border x:Name="HardControls" Style="{StaticResource PanelBorder}" Margin="0,0,0,16" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="Typed answer: key the abbreviation in Morse" FontWeight="SemiBold"/>
+                    <TextBlock Text="Player 1: W = dot, A = dash, S = space (tap: new letter, hold: new word), D = submit"/>
+                    <TextBlock Text="Player 2: Up = dot, Down = dash, Right = space (tap: new letter, hold: new word), Enter = submit"/>
+                    <TextBlock Text="The letters are decoded when you submit."
+                               TextWrapping="Wrap" Opacity="0.75" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <WrapPanel>
+                <Button Content="Start match" Click="Start_Click"/>
+                <Button Content="Close" Click="Close_Click"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <!-- Round -->
+        <Grid x:Name="MatchPanel" Margin="24" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock x:Name="RoundText" FontSize="22" FontWeight="Bold"/>
+                </StackPanel>
+                <TextBlock x:Name="TimerText" Grid.Column="1" FontSize="26" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="12,0"/>
+                <Button Grid.Column="2" Content="Leave" Click="Leave_Click"/>
+            </Grid>
+
+            <Border Grid.Row="1" Style="{StaticResource PanelBorder}" Margin="0,16,0,16">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock x:Name="PromptText" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="RevealText" FontSize="18" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Player 1 -->
+                <Border Grid.Column="0" Style="{StaticResource PanelBorder}" Margin="0,0,8,0">
+                    <StackPanel>
+                        <TextBlock Text="Player 1  (W A S D)" FontWeight="Bold" FontSize="18"/>
+                        <TextBlock x:Name="OneScore" FontSize="22" Margin="0,6,0,0"/>
+                        <TextBlock x:Name="OneTimer" Margin="0,2,0,12" Opacity="0.8"/>
+                        <StackPanel x:Name="OneChoices" Margin="0,0,0,12"/>
+                        <StackPanel x:Name="OneKeyedArea">
+                            <TextBlock x:Name="OneKeyed" FontFamily="Consolas" FontSize="30" MinHeight="48"
+                                       TextWrapping="Wrap"/>
+                            <TextBlock x:Name="OneDecoded" Opacity="0.75" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <TextBlock x:Name="OneFeedback" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,12,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Player 2 -->
+                <Border Grid.Column="1" Style="{StaticResource PanelBorder}" Margin="8,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Player 2  (Arrows, Enter)" FontWeight="Bold" FontSize="18"/>
+                        <TextBlock x:Name="TwoScore" FontSize="22" Margin="0,6,0,0"/>
+                        <TextBlock x:Name="TwoTimer" Margin="0,2,0,12" Opacity="0.8"/>
+                        <StackPanel x:Name="TwoChoices" Margin="0,0,0,12"/>
+                        <StackPanel x:Name="TwoKeyedArea">
+                            <TextBlock x:Name="TwoKeyed" FontFamily="Consolas" FontSize="30" MinHeight="48"
+                                       TextWrapping="Wrap"/>
+                            <TextBlock x:Name="TwoDecoded" Opacity="0.75" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <TextBlock x:Name="TwoFeedback" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,12,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Result -->
+        <StackPanel x:Name="ResultPanel" Margin="32" Visibility="Collapsed">
+            <TextBlock x:Name="WinnerText" FontSize="32" FontWeight="Bold"/>
+            <TextBlock x:Name="FinalScoreText" FontSize="20" Margin="0,8,0,16"/>
+            <DataGrid x:Name="RoundsGrid" AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserAddRows="False" CanUserResizeRows="False" Height="320">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Round" Binding="{Binding Round}"/>
+                    <DataGridTextColumn Header="Prompt" Binding="{Binding Prompt}" Width="*"/>
+                    <DataGridTextColumn Header="Answer" Binding="{Binding Answer}"/>
+                    <DataGridTextColumn Header="Player 1" Binding="{Binding PlayerOne}"/>
+                    <DataGridTextColumn Header="Player 2" Binding="{Binding PlayerTwo}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <WrapPanel Margin="0,16,0,0">
+                <Button Content="Play again" Click="PlayAgain_Click"/>
+                <Button Content="Leave" Click="Leave_Click"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <TextBlock x:Name="StatusText" Grid.Row="1" Margin="24,0,24,12" Opacity="0.75" TextWrapping="Wrap"/>
+    </Grid>
+</Window>

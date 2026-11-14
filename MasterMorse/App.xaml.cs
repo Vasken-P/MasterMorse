@@ -5,7 +5,8 @@ using MasterMorse.Views;
 namespace MasterMorse;
 
 /// <summary>
-/// Interaction logic for App.xaml
+/// Composition root: creates the view and its infrastructure services,
+/// then connects them to the presenter.
 /// </summary>
 public partial class App : Application
 {
