@@ -1,11 +1,11 @@
 # MasterMorse
 
-MasterMorse aims to make learning Morse code accessible, with a translator and learning resources. The current project is a blank application shell; these features are not implemented yet.
+MasterMorse aims to make learning Morse code accessible, with a translator and learning resources. The application is a Morse Code Translator: it translates text to Morse code and Morse code to text in real time, swaps directions, copies results, and plays Morse audio with play, pause and stop controls.
 
 ## Project structure
 
 - [`MasterMorse`](MasterMorse/) contains the .NET 10 WPF application. [`MainWindow`](MasterMorse/MainWindow.xaml) is the view.
-- [`PresenterLibrary`](PresenterLibrary/) contains [`IMainView`](PresenterLibrary/IMainView.cs) and [`MainPresenter`](PresenterLibrary/MainPresenter.cs). The view implements the interface, and [`App`](MasterMorse/App.xaml.cs) connects it to the presenter at startup.
+- [`PresenterLibrary`](PresenterLibrary/) contains [`IMainView`](PresenterLibrary/Views/IMainView.cs) and [`MainPresenter`](PresenterLibrary/MainPresenter.cs). The view implements the interface, and [`App`](MasterMorse/App.xaml.cs) connects it to the presenter at startup.
 - [`ModelLibrary`](ModelLibrary/) is a class library for future domain models and logic. The presenter references it as a project, so it builds into a DLL with the solution; no models are implemented yet.
 
 ## Build and run
