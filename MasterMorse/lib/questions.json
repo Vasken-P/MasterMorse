@@ -7,9 +7,9 @@
     { "id": "basics-05", "category": "Morse Basics", "clue": "How many time units long is a dash?", "correctAnswer": "3", "acceptedAnswers": ["three", "three time units"] },
     { "id": "basics-06", "category": "Morse Basics", "clue": "What does every letter have in Morse code?", "correctAnswer": "a unique pattern", "acceptedAnswers": ["its own pattern", "a pattern"] },
 
-    { "id": "decode-01", "category": "Decode It", "clue": "Decode ·.", "correctAnswer": "A", "acceptedAnswers": ["letter A"] },
-    { "id": "decode-02", "category": "Decode It", "clue": "Decode -...", "correctAnswer": "B", "acceptedAnswers": ["letter B"] },
-    { "id": "decode-03", "category": "Decode It", "clue": "Decode -.-.", "correctAnswer": "C", "acceptedAnswers": ["letter C"] },
+    { "id": "decode-01", "category": "Decode It", "clue": "Decode ·-", "correctAnswer": "A", "acceptedAnswers": ["letter A"] },
+    { "id": "decode-02", "category": "Decode It", "clue": "Decode -···", "correctAnswer": "B", "acceptedAnswers": ["letter B"] },
+    { "id": "decode-03", "category": "Decode It", "clue": "Decode -·-·", "correctAnswer": "C", "acceptedAnswers": ["letter C"] },
     { "id": "decode-04", "category": "Decode It", "clue": "Decode ···", "correctAnswer": "S", "acceptedAnswers": ["letter S"] },
     { "id": "decode-05", "category": "Decode It", "clue": "Decode ---", "correctAnswer": "O", "acceptedAnswers": ["letter O"] },
     { "id": "decode-06", "category": "Decode It", "clue": "Decode ·-·", "correctAnswer": "R", "acceptedAnswers": ["letter R"] },
@@ -32,7 +32,7 @@
     { "id": "numbers-02", "category": "Numbers & Marks", "clue": "Which number is ·----?", "correctAnswer": "1", "acceptedAnswers": ["one"] },
     { "id": "numbers-03", "category": "Numbers & Marks", "clue": "Which number is -----?", "correctAnswer": "0", "acceptedAnswers": ["zero"] },
     { "id": "numbers-04", "category": "Numbers & Marks", "clue": "How many signals are in a standard Morse digit?", "correctAnswer": "5", "acceptedAnswers": ["five"] },
-    { "id": "numbers-05", "category": "Numbers & Marks", "clue": "Which digit is -....?", "correctAnswer": "6", "acceptedAnswers": ["six"] },
+    { "id": "numbers-05", "category": "Numbers & Marks", "clue": "Which digit is -····?", "correctAnswer": "6", "acceptedAnswers": ["six"] },
     { "id": "numbers-06", "category": "Numbers & Marks", "clue": "Which number is ····-?", "correctAnswer": "4", "acceptedAnswers": ["four"] },
 
     { "id": "sending-01", "category": "Sending Signals", "clue": "Name one way to send Morse using something you can hear.", "correctAnswer": "sound", "acceptedAnswers": ["audio", "tone"] },

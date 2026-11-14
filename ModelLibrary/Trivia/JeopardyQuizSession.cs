@@ -30,6 +30,7 @@ public sealed class JeopardyQuizSession : ITriviaGameSession
 
     public int Score { get; private set; }
     public int AnsweredQuestionCount => _usedQuestionIds.Count;
+    public int TotalQuestionCount => QuestionsPerGame;
     public bool IsComplete => AnsweredQuestionCount == QuestionsPerGame;
 
     public IReadOnlyList<TriviaBoardCategory> GetBoard() =>

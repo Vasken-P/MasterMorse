@@ -10,8 +10,12 @@
             <TextBlock Text="Learn Morse code, one signal at a time."
                        FontSize="16" Margin="0,12,0,24"
                        TextWrapping="Wrap" TextAlignment="Center" />
-            <Button Content="Get Started" Padding="24,10"
-                    HorizontalAlignment="Center" Click="OnGetStarted" />
+            <StackPanel HorizontalAlignment="Center">
+                <Button Content="Get Started" Padding="24,10"
+                        HorizontalAlignment="Center" Click="OnGetStarted" />
+                <Button Content="Play Jeopardy Quiz" Padding="24,10" Margin="0,10,0,0"
+                        HorizontalAlignment="Center" Click="OnQuizRequested" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
