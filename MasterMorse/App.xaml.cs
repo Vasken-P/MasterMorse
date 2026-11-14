@@ -1,5 +1,7 @@
 ﻿using System.Windows;
-using MasterMorse.Presenters;
+using MasterMorse.Models;
+using MasterMorse.Presenters.Guidebook;
+using MasterMorse.Views;
 
 namespace MasterMorse;
 
@@ -12,8 +14,8 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        var view = new MainWindow();
-        var presenter = new MainPresenter(view);
+        var view = new GuidebookView();
+        var presenter = new GuidebookPresenter(view, new GuidebookContentProvider());
         presenter.Initialize();
         MainWindow = view;
         view.Show();
